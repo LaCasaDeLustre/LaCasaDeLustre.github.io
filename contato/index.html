@@ -550,20 +550,27 @@
 
           event.preventDefault();
 
-          var from = "contato@lacasadelustre.com.br";
-          var to = jQuery("#email").val();
+          var name = jQuery("#name").val();
+          var email = jQuery("#email").val();
           var subject = jQuery("#subject").val();
-          var body = "<h1 style='color: red'>"+jQuery("#message").val()+"</h1>";
-          var url = 'https://q3a8skhr24.execute-api.us-east-1.amazonaws.com/dev/mail';
+          var message = "<h1 style='color: red'>"+jQuery("#message").val()+"</h1>";
+
+          var from = "contato@lacasadelustre.com.br";     
+          var to = "diegolirio.dl@gmail.com";     
+          var body = "<h3>Email enviado do Site LaCasaDeLustre.com.br</h3>";
+          body += "<p>Nome: " + name + "</p>";
+          body += "<p>Email: " + email + "</p>";
+          body += "<p>Assunto: " + subject + "</p>";
+          body += "<p>Mensagem: " + message + "</p>";
 
           var data = {
-            body: { 
-              from: from,
-              to: [to],
-              subject: subject,
-              body: body
-            }
+            from: from,
+            to: [to],
+            subject: subject,
+            body: body
           };
+
+          var url = 'https://q3a8skhr24.execute-api.us-east-1.amazonaws.com/dev/mail';
 
           jQuery.ajax( {
             url: url, 
@@ -575,11 +582,9 @@
                 'Content-Type': 'application/json'
             },            
             success: function() {
-                //alert('Mensagem enviada com sucesso!!!');
                 var _html = "<h4>";
                 _html += "Mensagem enviada com sucesso!!!";
                 _html += "</h4>";
-                //_html += "<button id='newMessage'>Enviar Nova Mensagem</button>";
                 jQuery("#app").html(_html);
             },
             error: function(err, status) {
