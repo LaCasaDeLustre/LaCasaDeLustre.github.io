@@ -278,14 +278,14 @@
                                 class="contact_form contact_form_module oshine-module style1 style1-input tatsu-fw4jw6c5lqqfhx3   "
                                 data-consent-error="Please check the consent box, in order for us to process this form">
 
-                                <form method="post" class="contact1"
-                                      id="app">
+                                <form method="post" class="contact1" id="app" >
                                   <fieldset class="field_name contact_fieldset">
                                     <input type="text" 
                                            name="name" 
                                            class="txt autoclear" 
                                            placeholder="Nome", 
                                            v-model="contact.name"
+                                           required="required"
                                            id="name"
                                       style="border-width:0px" >
                                   </fieldset>
@@ -295,6 +295,7 @@
                                            class="txt autoclear" 
                                            placeholder="Email",
                                            v-model="contact.email"
+                                           required="required"
                                            id="email"
                                       style="border-width:0px">
                                   </fieldset>
@@ -304,6 +305,7 @@
                                            placeholder="Assunto" 
                                            style="border-width:0px"
                                            v-model="contact.subject"
+                                           required="required"
                                            id="subject">
                                   </fieldset>
                                   <fieldset class="field_comment contact_fieldset">
@@ -311,12 +313,13 @@
                                               class="txt_area autoclear" 
                                               placeholder="Sua Mensagem"
                                               v-model="contact.message"
+                                              required="required"
                                               id="message"
                                       style="border-width:0px"></textarea>
                                   </fieldset>
                                   <fieldset class="contact_fieldset submit-fieldset">
                                     
-                                    <input type="button" name="enviar" value="Enviar" onclick="send()"
+                                    <input type="submit" name="enviar" value="Enviar" 
                                            class="contact_submit tatsu-button rounded mediumbtn">
                                     <div class="contact_loader">
                                       <div class="font-icon loader-style4-wrap loader-icon"></div>
@@ -543,23 +546,50 @@
   
   <script type="text/javascript">
 
-      function send() {
-        var url = 'https://t9vxz63p1b.execute-api.us-east-2.amazonaws.com/dev/mail';
-        var data = {
-          body: {
-            from: "contato@lacasadelustre.com.br",
-            to: ["diegolirio.dl@gmail.com"],
-            subject: "Contato - LaCasaDeLustre.com.br",
-            body: "<h1 style='color: red'>Testando envio</h1>"
-          }
-        };
+      jQuery("#app").submit(function(event) {
 
-        jQuery.post( url, data).success(function() {
-            alert('Mensagem enviada com sucesso!!!');
-        }).error(function(er) {
-          alert('Erro ao enviar Mensagem!');
-        });
-      }
+          event.preventDefault();
+
+          var from = "contato@lacasadelustre.com.br";
+          var to = jQuery("#email").val();
+          var subject = jQuery("#subject").val();
+          var body = "<h1 style='color: red'>"+jQuery("#message").val()+"</h1>";
+          var url = 'https://aut1s1gpdf.execute-api.us-east-2.amazonaws.com/dev/mail';
+
+          var data = {
+            body: { 
+              from: from,
+              to: [to],
+              subject: subject,
+              body: body
+            }
+          };
+
+          jQuery.ajax( {
+            url: url, 
+            data: data,
+            type: 'POST',
+            dataType: 'json',
+            headers: {  
+                'Accept': 'application/json',  
+                'Content-Type': 'application/json'
+            },            
+            success: function() {
+                //alert('Mensagem enviada com sucesso!!!');
+                var _html = "<h1>";
+                _html += "Mensagem enviada com sucesso!!!";
+                _html += "</h1>";
+                //_html += "<button id='newMessage'>Enviar Nova Mensagem</button>";
+                jQuery("#id").html(_html);
+            },
+            error: function(err, status) {
+                console.log(err);
+                console.log(status);
+                alert('Erro ao enviar Mensagem!');
+            }
+          });
+      });
+
   </script>
   
 
