@@ -554,7 +554,7 @@
           var to = jQuery("#email").val();
           var subject = jQuery("#subject").val();
           var body = "<h1 style='color: red'>"+jQuery("#message").val()+"</h1>";
-          var url = 'https://aut1s1gpdf.execute-api.us-east-2.amazonaws.com/dev/mail';
+          var url = 'https://q3a8skhr24.execute-api.us-east-1.amazonaws.com/dev/mail';
 
           var data = {
             body: { 
@@ -576,11 +576,11 @@
             },            
             success: function() {
                 //alert('Mensagem enviada com sucesso!!!');
-                var _html = "<h1>";
+                var _html = "<h4>";
                 _html += "Mensagem enviada com sucesso!!!";
-                _html += "</h1>";
+                _html += "</h4>";
                 //_html += "<button id='newMessage'>Enviar Nova Mensagem</button>";
-                jQuery("#id").html(_html);
+                jQuery("#app").html(_html);
             },
             error: function(err, status) {
                 console.log(err);
