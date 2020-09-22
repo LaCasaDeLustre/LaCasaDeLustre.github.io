@@ -546,6 +546,25 @@
   
   <script type="text/javascript">
 
+
+          // jQuery.ajax( {
+          //   url: 'https://cuwo5v7wff.execute-api.us-east-2.amazonaws.com/dev/location?q=Tatuape', 
+          //   type: 'GET',
+          //   dataType: 'json',
+          //   headers: {  
+          //       'Accept': 'application/json',  
+          //       'Content-Type': 'application/json'
+          //   },            
+          //   success: function() {
+          //       alert('success');
+          //   },
+          //   error: function(err, status) {
+          //       console.log(err);
+          //       console.log(status);
+          //       alert('Erro ao enviar Mensagem!');
+          //   }
+          // });
+
       jQuery("#app").submit(function(event) {
 
           event.preventDefault();
@@ -553,7 +572,7 @@
           var name = jQuery("#name").val();
           var email = jQuery("#email").val();
           var subject = jQuery("#subject").val();
-          var message = "<h1 style='color: red'>"+jQuery("#message").val()+"</h1>";
+          var message = "<h3 style='color: red'>"+jQuery("#message").val()+"</h3>";
 
           var from = "contato@lacasadelustre.com.br";     
           var to = "diegolirio.dl@gmail.com";     
@@ -570,7 +589,9 @@
             body: body
           };
 
-          var url = 'https://q3a8skhr24.execute-api.us-east-1.amazonaws.com/dev/mail';
+          console.log(JSON.stringify(data));
+
+          var url = 'https://u5o55pby3f.execute-api.us-east-1.amazonaws.com/dev/e-mail';
 
           jQuery.ajax( {
             url: url, 
